@@ -53,7 +53,7 @@ This system allows patients to connect with specialists, book appointments, and 
 *(Fill with your actual tools — here is a generic template you can edit)*
 
 * **Frontend:** React / Next.js 
-* **Backend:** Node.js / pring Boot
+* **Backend:** Node.js / Spring Boot
 * **Database:** MySQL
 * **Real-time:** WebSockets
 * **Deployment:** Vercel if supported
