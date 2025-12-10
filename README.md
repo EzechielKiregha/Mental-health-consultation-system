@@ -52,11 +52,11 @@ This system allows patients to connect with specialists, book appointments, and 
 
 *(Fill with your actual tools — here is a generic template you can edit)*
 
-* **Frontend:** React / Vue / Next.js / HTML-CSS-JS
-* **Backend:** Node.js / Django / Laravel / Spring Boot
-* **Database:** PostgreSQL / MySQL / MongoDB
-* **Real-time:** Socket.io / Firebase / WebSockets
-* **Deployment:** Vercel / Netlify / Railway / Docker
+* **Frontend:** React / Next.js 
+* **Backend:** Node.js / pring Boot
+* **Database:** MySQL
+* **Real-time:** WebSockets
+* **Deployment:** Vercel if supported
 
 ---
 
@@ -65,7 +65,7 @@ This system allows patients to connect with specialists, book appointments, and 
 ### **Clone the repository**
 
 ```bash
-git clone https://github.com/<your-username>/Mental-health-consultation-system.git
+git clone https://github.com/EzechielKiregha/Mental-health-consultation-system.git
 cd Mental-health-consultation-system
 ```
 
