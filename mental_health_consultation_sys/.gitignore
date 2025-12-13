@@ -5,7 +5,7 @@ target/
 !**/src/test/**/target/
 
 ### folder for storing IDE specific settings ###
-/resources/application.properties
+/resources/**/
 
 ### STS ###
 .apt_generated
