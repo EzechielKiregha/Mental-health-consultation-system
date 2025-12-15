@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.group1.support.mental_health_consultation_sys.dto.CredentialsDto;
 import com.group1.support.mental_health_consultation_sys.model.User;
 import com.group1.support.mental_health_consultation_sys.service.AuthService;
 import com.group1.support.mental_health_consultation_sys.service.OTPService;
 import com.group1.support.mental_health_consultation_sys.service.UserService;
+import com.twilio.rest.api.v2010.account.sip.credentiallist.Credential;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -52,7 +54,9 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<?> signin(@RequestParam String email, @RequestParam String password) {
+    public ResponseEntity<?> signin(@RequestBody CredentialsDto credentials) {
+        String email = credentials.getEmail();
+        String password = credentials.getPassword();
         try {
             String token = authService.authenticate(email, password);
             // System.out.println("Token: " + token);

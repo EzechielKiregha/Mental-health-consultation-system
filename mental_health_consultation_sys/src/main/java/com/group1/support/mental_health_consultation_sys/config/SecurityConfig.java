@@ -50,7 +50,6 @@ public class SecurityConfig {
                     .requestMatchers("/api/self-check/**").permitAll()
                     // .requestMatchers("/api/appointments/**").permitAll()
 
-
                     // All other endpoints require authentication
                     .anyRequest().authenticated()
                 )

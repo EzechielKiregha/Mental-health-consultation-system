@@ -15,19 +15,18 @@ interface HeroProps {
 export default function Hero({ title, subtitle, imageSrc, reverse, ctaText, ctaLink }: HeroProps) {
   return (
     <div
-      className={`relative grid grid-cols-1 md:grid-cols-2 gap-8 items-center h-screen ${reverse ? "md:flex-row-reverse" : ""}`}
+      className="relative w-full h-screen flex items-center justify-center"
       style={{ backgroundImage: `url(${imageSrc})`, backgroundSize: "cover", backgroundPosition: "center" }}
     >
-      <div className="absolute inset-0 bg-black/40"></div> {/* Optional overlay for better contrast */}
-      <div className="relative flex flex-col lg:items-center items-center py-20 bg-white/70 backdrop-blur-md rounded-r-lg shadow-lg">
-        <h1 className="text-4xl font-bold text-green-800">{title}</h1>
-        <p className="mt-4 text-gray-800">{subtitle}</p>
-        <Link href={ctaLink ? ctaLink : "#"} className="mt-6 bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded">
-          {ctaText}
-        </Link>
-      </div>
-      <div className="relative hidden md:block">
-        <img src={imageSrc} alt={title} className="rounded-l-lg shadow-lg" />
+      <div className="absolute inset-0 bg-black/50"></div>
+      <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 max-w-2xl">
+        <h1 className="text-5xl md:text-6xl font-bold text-white drop-shadow-lg">{title}</h1>
+        <p className="mt-6 text-lg md:text-xl text-white drop-shadow-md">{subtitle}</p>
+        {ctaText && ctaLink && (
+          <Link href={ctaLink} className="mt-8 inline-block bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-200 shadow-lg">
+            {ctaText}
+          </Link>
+        )}
       </div>
     </div>
   );

@@ -56,7 +56,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                         );
 
                     auth.setDetails(
-                      new WebAuthenticationDetailsSource().buildDetails(request)
+                        new WebAuthenticationDetailsSource().buildDetails(request)
                     );
 
                     // 4) Tell Spring Security about it

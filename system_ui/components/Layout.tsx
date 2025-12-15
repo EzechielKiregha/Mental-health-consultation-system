@@ -13,7 +13,7 @@ export default function Layout({ children }: LayoutProps) {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       {/* Main content area */}
-      <main className="container mx-auto pb-8">{children}</main>
+      <main className="flex-1">{children}</main>
       <Footer />
     </div>
   );

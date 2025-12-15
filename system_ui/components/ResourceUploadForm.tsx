@@ -64,65 +64,117 @@ export default function ResourceUploadForm() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <span className="text-gray-600 mb-4">
-        <ArrowLeft className="inline mr-2" />
-        <a href="/dashboard" className="text-green-600 hover:underline">
-          Back to dashboard
-        </a>
-      </span>
-      <h1 className="text-2xl font-bold text-green-800 mb-4">Upload Resource</h1>
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-8">
+        <div className="mb-8">
+          <a href="/dashboard" className="inline-flex items-center text-green-600 hover:text-green-700 font-medium">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to dashboard
+          </a>
+        </div>
 
-      {error && <p className="text-red-600 mb-4">{error}</p>}
-      {success && <p className="text-green-600 mb-4">Resource uploaded successfully!</p>}
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          name="title"
-          placeholder="Title"
-          value={form.title}
-          onChange={handleChange}
-          className="w-full border border-gray-300 rounded px-3 py-2 focus:border-green-600 focus:ring-1 focus:ring-green-600"
-          required
-        />
-        <textarea
-          name="content"
-          placeholder="Content"
-          value={form.content}
-          onChange={(e) => setForm({ ...form, content: e.target.value })}
-          className="w-full border border-gray-300 rounded px-3 py-2 focus:border-green-600 focus:ring-1 focus:ring-green-600"
-          rows={4}
-          required
-        />
-        <select
-          title="Resource Type"
-          name="resourceType"
-          value={form.resourceType}
-          onChange={handleChange}
-          className="w-full border border-gray-300 rounded px-3 py-2 focus:border-green-600 focus:ring-1 focus:ring-green-600"
-        >
-          <option value="ARTICLE">Article</option>
-          <option value="EXERCISE">Exercise</option>
-          <option value="GUIDE">Guide</option>
-        </select>
-        <label>
-          Question #
-          <select
-            value={questionIndex}
-            onChange={e => setQuestionIndex(Number(e.target.value))}
-            className="border p-2 rounded ml-2"
-          >
-            {questions.map((_, i) => <option key={i} value={i}>{i + 1}</option>)}
-          </select>
-        </label>
-        <button
-          type="submit"
-          disabled={loading}
-          className={`w-full px-4 py-2 ${loading ? "bg-green-200 hover:bg-green-300 text-green-900" : "bg-green-600 hover:bg-green-700 text-white"} rounded disabled:opacity-50`}
-        >
-          {loading ? <Loader message="Uploading..." /> : "Upload"}
-        </button>
-      </form>
+        <div className="max-w-2xl mx-auto">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-green-800 mb-2">Upload Resource</h1>
+            <p className="text-gray-600">Share helpful resources linked to specific assessment questions</p>
+          </div>
+
+          {error && (
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+              <p className="text-red-700">{error}</p>
+            </div>
+          )}
+          {success && (
+            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+              <p className="text-green-700">✓ Resource uploaded successfully!</p>
+            </div>
+          )}
+
+          {/* Question Display */}
+          <div className="mb-8 p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+            <p className="text-sm text-gray-500 uppercase tracking-wide mb-2">Question #{questionIndex + 1}</p>
+            <p className="text-lg font-semibold text-gray-800">{questions[questionIndex]}</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Resource Title</label>
+              <input
+                type="text"
+                name="title"
+                placeholder="Enter a descriptive title"
+                value={form.title}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-green-600 focus:ring-2 focus:ring-green-100 outline-none transition-colors"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Content</label>
+              <textarea
+                name="content"
+                placeholder="Provide detailed content for this resource..."
+                value={form.content}
+                onChange={(e) => setForm({ ...form, content: e.target.value })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-green-600 focus:ring-2 focus:ring-green-100 outline-none transition-colors"
+                rows={6}
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Resource Type</label>
+                <select
+                  name="resourceType"
+                  value={form.resourceType}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-green-600 focus:ring-2 focus:ring-green-100 outline-none transition-colors"
+                  required
+                >
+                  <option value="">Select a type</option>
+                  <option value="ARTICLE">Article</option>
+                  <option value="EXERCISE">Exercise</option>
+                  <option value="GUIDE">Guide</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Link to Question</label>
+                <select
+                  value={questionIndex}
+                  onChange={e => setQuestionIndex(Number(e.target.value))}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-green-600 focus:ring-2 focus:ring-green-100 outline-none transition-colors"
+                >
+                  {questions.map((_, i) => (
+                    <option key={i} value={i}>Question #{i + 1}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className={`w-full px-6 py-3 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center gap-2 ${
+                loading
+                  ? "bg-gray-200 text-gray-700 cursor-not-allowed"
+                  : "bg-green-600 hover:bg-green-700 text-white"
+              }`}
+            >
+              {loading ? (
+                <>
+                  <Loader />
+                  Uploading...
+                </>
+              ) : (
+                "Upload Resource"
+              )}
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

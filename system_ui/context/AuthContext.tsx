@@ -65,9 +65,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setLoading(true);
     try {
 
-      const res = await api.post('/auth/signin', null, {
-        params: { email, password },
-      });
+      console.log(email, password);
+
+      const res = await api.post('/auth/signin', { email, password });
       if (res.status === 200) {
         const newToken = res.data.token;
         localStorage.setItem('jwtToken', newToken);

@@ -3,7 +3,7 @@ import { useEffect, useId, useState } from 'react';
 import { AnimatePresence, MotionConfig, motion } from 'framer-motion';
 import { ArrowLeftIcon } from 'lucide-react';
 
-const TRANSITION = { type: 'spring', bounce: 0.1, duration: 0.5 };
+const TRANSITION = { type: 'spring', bounce: 0.1, duration: 0.5 } as const;
 
 interface PopoverProps {
   title: string;
