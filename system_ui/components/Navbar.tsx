@@ -26,7 +26,7 @@ const Navbar = () => {
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-white text-gray-800 shadow-md border-b border-gray-200">
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div className="mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 flex-shrink-0">
           <img
@@ -34,7 +34,7 @@ const Navbar = () => {
             alt="Logo"
             className="h-10 w-10 rounded-full"
           />
-          <span className="text-lg font-bold text-green-700 hidden sm:inline">USCOR for Mental Health</span>
+          <span className="text-lg font-bold text-green-700 hidden sm:inline">Ben Mental Health</span>
         </Link>
 
         {/* Desktop Navigation Links - Centered */}
@@ -52,17 +52,18 @@ const Navbar = () => {
         </div>
 
         {/* Right Section - User or Login */}
-        <div className="flex items-center gap-4">
-          {user && !otpRequired ? (
+        <div className="flex items-center gap-2">
+          {/* Desktop User Menu - Hidden on Mobile */}
+          {user && !otpRequired && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-2 hover:bg-gray-100 px-3 py-2 rounded-lg transition-colors duration-200">
+                <button className="hidden sm:flex items-center gap-2 hover:bg-gray-100 px-3 py-2 rounded-lg transition-colors duration-200">
                   <img
                     src="/images/avatar1.png"
                     alt="Avatar"
                     className="h-8 w-8 rounded-full border-2 border-green-600"
                   />
-                  <span className="hidden sm:inline text-gray-700 font-medium text-sm">
+                  <span className="text-gray-700 font-medium text-sm">
                     {patientData?.firstName || "User"}
                   </span>
                   <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -70,7 +71,7 @@ const Navbar = () => {
                   </svg>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56 bg-white">
+              <DropdownMenuContent align="end" className="w-56 bg-white">
                 <div className="px-4 py-3 border-b border-gray-200">
                   <p className="text-sm font-semibold text-gray-800">
                     {patientData?.firstName} {patientData?.lastName}
@@ -112,15 +113,18 @@ const Navbar = () => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          ) : (
-            <Link href="/login">
+          )}
+
+          {/* Desktop Get Started - Hidden on Mobile */}
+          {!user || otpRequired ? (
+            <Link href="/login" className="hidden sm:block">
               <Button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200">
                 Get Started
               </Button>
             </Link>
-          )}
+          ) : null}
 
-          {/* Mobile Menu */}
+          {/* Mobile Menu - Only on Small Screens */}
           <div className="md:hidden">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -130,7 +134,7 @@ const Navbar = () => {
                   </svg>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
+              <DropdownMenuContent align="end" className="w-48">
                 {navLinks.map((link) => (
                   <DropdownMenuItem key={link.href} asChild>
                     <Link
@@ -141,27 +145,37 @@ const Navbar = () => {
                     </Link>
                   </DropdownMenuItem>
                 ))}
-                {user && !otpRequired && <DropdownMenuSeparator />}
+                {(user && !otpRequired) && <DropdownMenuSeparator />}
                 {user && !otpRequired ? (
                   <>
                     <DropdownMenuItem asChild>
                       <Link
-                        className="text-gray-700 cursor-pointer"
+                        className="text-gray-700 cursor-pointer flex items-center gap-2"
                         href="/dashboard"
                       >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9" />
+                        </svg>
                         Dashboard
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                       <Link
-                        className="text-gray-700 cursor-pointer"
+                        className="text-gray-700 cursor-pointer flex items-center gap-2"
                         href="/dashboard/#"
                       >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
                         Settings
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={logout} className="text-red-600 cursor-pointer">
+                    <DropdownMenuItem onClick={logout} className="text-red-600 cursor-pointer flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                      </svg>
                       Logout
                     </DropdownMenuItem>
                   </>
