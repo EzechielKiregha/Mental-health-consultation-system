@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+
 import { useEmergencyContacts } from "../../hooks/useEmergencyContacts";
 import Loader from "../../components/Loader";
 import ErrorMessage from "../../components/ErrorMessage";
