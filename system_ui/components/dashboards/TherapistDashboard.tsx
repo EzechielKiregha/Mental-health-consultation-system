@@ -165,11 +165,10 @@ export default function TherapistDashboard() {
                 <button
                   type="submit"
                   disabled={loadingUpdate}
-                  className={`w-full px-4 py-2 rounded-lg font-semibold transition-colors ${
-                    loadingUpdate
+                  className={`w-full px-4 py-2 rounded-lg font-semibold transition-colors ${loadingUpdate
                       ? "bg-gray-200 text-gray-700 cursor-not-allowed"
                       : "bg-green-600 hover:bg-green-700 text-white"
-                  }`}
+                    }`}
                 >
                   {loadingUpdate ? "Updating..." : "Save Changes"}
                 </button>
@@ -182,7 +181,7 @@ export default function TherapistDashboard() {
             <h3 className="text-lg font-bold text-green-800 mb-4">Quick Stats</h3>
             <div className="space-y-4">
               <div className="text-center p-3 bg-green-50 rounded-lg">
-                <p className="text-2xl font-bold text-green-600">{stats?.totalPatients || 0}</p>
+                <p className="text-2xl font-bold text-green-600">{tableData.length || 0}</p>
                 <p className="text-sm text-gray-600">Total Patients</p>
               </div>
               <div className="text-center p-3 bg-blue-50 rounded-lg">
@@ -190,7 +189,7 @@ export default function TherapistDashboard() {
                 <p className="text-sm text-gray-600">Appointments</p>
               </div>
               <div className="text-center p-3 bg-purple-50 rounded-lg">
-                <p className="text-2xl font-bold text-purple-600">{stats?.totalResources || 0}</p>
+                <p className="text-2xl font-bold text-purple-600">{resourceData.length || 0}</p>
                 <p className="text-sm text-gray-600">Resources Added</p>
               </div>
             </div>
