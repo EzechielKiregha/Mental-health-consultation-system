@@ -1,0 +1,11 @@
+target/
+*.log
+*.pid
+*.jar
+*.war
+*.class
+.mvn/
+node_modules/
+.DS_Store
+.git
+.env
