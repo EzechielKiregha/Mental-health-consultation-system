@@ -134,23 +134,31 @@ const Navbar = () => {
                   </svg>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuContent align="end" className="w-48 bg-white">
                 {navLinks.map((link) => (
                   <DropdownMenuItem key={link.href} asChild>
                     <Link
-                      className="text-gray-700 cursor-pointer"
+                      key={link.href}
+                      className="text-gray-700 font-medium hover:text-green-600 transition-colors duration-200 relative group"
                       href={link.href}
                     >
                       {link.label}
+                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 group-hover:w-full transition-all duration-300"></span>
                     </Link>
                   </DropdownMenuItem>
                 ))}
                 {(user && !otpRequired) && <DropdownMenuSeparator />}
                 {user && !otpRequired ? (
                   <>
+                    <div className="px-4 py-3 border-b border-gray-200">
+                      <p className="text-sm font-semibold text-gray-800">
+                        {patientData?.firstName} {patientData?.lastName}
+                      </p>
+                      <p className="text-xs text-gray-500">Logged in</p>
+                    </div>
                     <DropdownMenuItem asChild>
                       <Link
-                        className="text-gray-700 cursor-pointer flex items-center gap-2"
+                        className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-50 cursor-pointer rounded-md"
                         href="/dashboard"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -161,7 +169,7 @@ const Navbar = () => {
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                       <Link
-                        className="text-gray-700 cursor-pointer flex items-center gap-2"
+                        className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-50 cursor-pointer rounded-md"
                         href="/dashboard/#"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -172,7 +180,10 @@ const Navbar = () => {
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={logout} className="text-red-600 cursor-pointer flex items-center gap-2">
+                    <DropdownMenuItem
+                      onClick={logout}
+                      className="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 cursor-pointer rounded-md"
+                    >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                       </svg>

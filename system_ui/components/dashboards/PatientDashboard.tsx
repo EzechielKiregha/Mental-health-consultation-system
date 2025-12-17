@@ -79,15 +79,15 @@ export default function PatientDashboard() {
             <div className="p-6">
               <div className="grid grid-cols-3 gap-4">
                 <div className="text-center p-4 bg-green-50 rounded-lg">
-                  <p className="text-2xl font-bold text-green-600">3</p>
+                  <p className="text-2xl font-bold text-green-600">-</p>
                   <p className="text-sm text-gray-600">Assessments</p>
                 </div>
                 <div className="text-center p-4 bg-blue-50 rounded-lg">
-                  <p className="text-2xl font-bold text-blue-600">5</p>
+                  <p className="text-2xl font-bold text-blue-600">-</p>
                   <p className="text-sm text-gray-600">Appointments</p>
                 </div>
                 <div className="text-center p-4 bg-purple-50 rounded-lg">
-                  <p className="text-2xl font-bold text-purple-600">12</p>
+                  <p className="text-2xl font-bold text-purple-600">-</p>
                   <p className="text-sm text-gray-600">Resources Saved</p>
                 </div>
               </div>
@@ -156,11 +156,10 @@ export default function PatientDashboard() {
                 <div className="bg-gradient-to-r from-green-600 to-green-700 px-6 py-4 text-white">
                   <div className="flex items-center justify-between mb-2">
                     <h2 className="text-lg font-bold">Appointment</h2>
-                    <span className={`text-xs font-semibold px-3 py-1 rounded-full ${
-                      appointment.status === "CONFIRMED" ? "bg-green-200 text-green-800" :
-                      appointment.status === "SCHEDULED" ? "bg-yellow-200 text-yellow-800" :
-                      "bg-red-200 text-red-800"
-                    }`}>
+                    <span className={`text-xs font-semibold px-3 py-1 rounded-full ${appointment.status === "CONFIRMED" ? "bg-green-200 text-green-800" :
+                        appointment.status === "SCHEDULED" ? "bg-yellow-200 text-yellow-800" :
+                          "bg-red-200 text-red-800"
+                      }`}>
                       {appointment.status}
                     </span>
                   </div>

@@ -60,7 +60,7 @@ export default function BasePopover({
         >
           <motion.span
             layoutId={`popover-label-${uniqueId}`}
-            className="hover:text-green-600 transition-all duration-300 cursor-pointer"
+            className="hover:text-green-600 px-4 py-2 rounded-md text-green-600 bg-green-100 transition-all duration-300 cursor-pointer"
           >
             {buttonLabel}
           </motion.span>

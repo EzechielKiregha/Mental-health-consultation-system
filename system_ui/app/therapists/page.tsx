@@ -37,7 +37,8 @@ export default function TherapistsPage() {
   };
 
   console.log("User ID:", user?.userId);
-  console.log("user ID from therapist data:", therapistsData?.map(t => t.therapistProfile?.userId));
+  const userID = Number(user?.userId);
+  console.log("user ID from therapist data:", therapistsData?.map(t => t.id));
 
   const handleBookAppointment = async () => {
     if (!selectedTherapist || !appointmentDate) {
@@ -106,13 +107,13 @@ export default function TherapistsPage() {
                     onClick={() => {
                       handleStartChat(therapist.id)
                     }}
-                    disabled={!therapist?.therapistProfile || user?.userId === therapist?.therapistProfile?.userId}
+                    disabled={!therapist?.therapistProfile ? true : (therapist?.therapistProfile && userID === therapist?.id) ? true : false}
                   >
                     Chat
                   </Button>
-                  {(therapist?.therapistProfile && user?.userId !== therapist?.therapistProfile?.userId) && <BasePopover
+                  {(therapist?.therapistProfile && userID !== therapist?.id) && <BasePopover
                     title="Book Appointment"
-                    buttonLabel="Book Appointment"
+                    buttonLabel={"Book Appointment"}
                     isOpen={PopoverOpen}
                   >
                     <form className="space-y-4">

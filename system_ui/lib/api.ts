@@ -1,7 +1,13 @@
 import axios from "axios";
 
+const getBaseURL = () => {
+  if (process.env.NEXT_PUBLIC_API_BASE_URL) return process.env.NEXT_PUBLIC_API_BASE_URL;
+  if (typeof window !== "undefined" && window.origin) return `${window.origin}/api`;
+  return "/api";
+};
+
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL, // Ensure this environment variable is set
+  baseURL: getBaseURL(),
   headers: {
     "Content-Type": "application/json",
   },

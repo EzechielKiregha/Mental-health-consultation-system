@@ -14,8 +14,7 @@ import DLoader from "@/components/DataLoader";
 export default function MyAppointments() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { user } = useAuth();
-  const { appointments, bookAppointment, updateAppointmentStatus } = useAppointments();
+  const { appointments } = useAppointments();
 
 
   const handleCancel = async (id: number) => {
@@ -37,12 +36,12 @@ export default function MyAppointments() {
         </a>
       </span>
       <h1 className="text-2xl font-bold text-green-800 mb-4">My Appointments</h1>
-      {loading ? (
+      {loading && !appointments ? (
         <DLoader message="Loading appointments..." />
       ) : error ? (
         <ErrorMessage message={error} />
       ) : appointments?.length === 0 ? (
-        <p className="text-gray-800">You have no appointments.</p>
+        <p className="flex justify-center items-center text-green-800">You have no appointments.</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {appointments?.map((appointment) => (

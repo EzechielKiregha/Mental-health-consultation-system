@@ -28,10 +28,19 @@ export default function TherapistDashboard() {
   const router = useRouter();
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [form, setForm] = useState({
-    bio: therapistProfile?.bio || "",
-    specialty: therapistProfile?.specialty || "",
-    availableSlots: therapistProfile?.availableSlots || "",
+    bio: "",
+    specialty: "",
+    availableSlots: "",
   });
+
+  // Keep the form in sync when therapist profile data arrives/changes
+  React.useEffect(() => {
+    setForm({
+      bio: therapistProfile?.bio || "",
+      specialty: therapistProfile?.specialty || "",
+      availableSlots: therapistProfile?.availableSlots || "",
+    });
+  }, [therapistProfile]);
   const [loadingUpdate, setLoadingUpdate] = useState(false);
   const [errorUpdate, setErrorUpdate] = useState<string | null>(null);
 
@@ -103,12 +112,63 @@ export default function TherapistDashboard() {
                       <p className="text-green-600 font-semibold">Available</p>
                     </div>
                   </div>
-                  <button
-                    onClick={() => setIsPopoverOpen(true)}
-                    className="w-full mt-4 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors"
+                  {/* Update Profile Popover */}
+                  <BasePopover
+                    title="Update Profile"
+                    isOpen={isPopoverOpen}
+                    onClose={() => setIsPopoverOpen(false)}
+                    buttonLabel="Update Profile"
                   >
-                    Update Profile
-                  </button>
+                    <form onSubmit={handleSubmit} className="space-y-4 w-full">
+                      {errorUpdate && <ErrorMessage message={errorUpdate} />}
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Bio</label>
+                        <textarea
+                          name="bio"
+                          placeholder="Tell patients about yourself..."
+                          value={form.bio}
+                          onChange={handleChange}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-green-600 focus:ring-2 focus:ring-green-100 outline-none"
+                          rows={4}
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Specialty</label>
+                        <input
+                          type="text"
+                          name="specialty"
+                          placeholder="e.g., Depression, Anxiety"
+                          value={form.specialty}
+                          onChange={handleChange}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-green-600 focus:ring-2 focus:ring-green-100 outline-none"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Available Slots</label>
+                        <input
+                          type="text"
+                          name="availableSlots"
+                          placeholder="e.g., Mon-Fri 9AM-5PM"
+                          value={form.availableSlots}
+                          onChange={handleChange}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-green-600 focus:ring-2 focus:ring-green-100 outline-none"
+                          required
+                        />
+                      </div>
+                      <button
+                        type="submit"
+                        disabled={loadingUpdate}
+                        className={`w-full px-4 py-2 rounded-lg font-semibold transition-colors ${loadingUpdate
+                          ? "bg-gray-200 text-gray-700 cursor-not-allowed"
+                          : "bg-green-600 hover:bg-green-700 text-white"
+                          }`}
+                      >
+                        {loadingUpdate ? "Updating..." : "Save Changes"}
+                      </button>
+                    </form>
+                  </BasePopover>
                 </>
               ) : (
                 <p className="text-gray-600 italic">No profile data available.</p>
@@ -117,12 +177,12 @@ export default function TherapistDashboard() {
           </div>
 
           {/* Update Profile Popover */}
-          {user?.role.includes("THERAPIST") && (
+          {!therapistProfile && (
             <BasePopover
-              title="Update Profile"
+              title="create a Profile"
               isOpen={isPopoverOpen}
               onClose={() => setIsPopoverOpen(false)}
-              buttonLabel=""
+              buttonLabel="create a Profile"
             >
               <form onSubmit={handleSubmit} className="space-y-4 w-full">
                 {errorUpdate && <ErrorMessage message={errorUpdate} />}
@@ -166,8 +226,8 @@ export default function TherapistDashboard() {
                   type="submit"
                   disabled={loadingUpdate}
                   className={`w-full px-4 py-2 rounded-lg font-semibold transition-colors ${loadingUpdate
-                      ? "bg-gray-200 text-gray-700 cursor-not-allowed"
-                      : "bg-green-600 hover:bg-green-700 text-white"
+                    ? "bg-gray-200 text-gray-700 cursor-not-allowed"
+                    : "bg-green-600 hover:bg-green-700 text-white"
                     }`}
                 >
                   {loadingUpdate ? "Updating..." : "Save Changes"}
@@ -177,9 +237,9 @@ export default function TherapistDashboard() {
           )}
 
           {/* Quick Stats */}
-          <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
+          <div className="lg:col-span-3 bg-white rounded-lg shadow-md border border-gray-200 p-6">
             <h3 className="text-lg font-bold text-green-800 mb-4">Quick Stats</h3>
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="text-center p-3 bg-green-50 rounded-lg">
                 <p className="text-2xl font-bold text-green-600">{tableData.length || 0}</p>
                 <p className="text-sm text-gray-600">Total Patients</p>
