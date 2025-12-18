@@ -1,8 +1,3 @@
-Here’s a clean, professional **README** you can drop directly into your repository.
-If you want a Markdown file you can download, just tell me and I’ll generate it.
-
----
-
 # **Mental Health Consultation System**
 
 A modern, user-friendly platform designed to make mental health support more accessible.
